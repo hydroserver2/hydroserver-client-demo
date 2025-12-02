@@ -8,6 +8,12 @@ VITE_HYDROSERVER_PASSWORD="YOUR_HYDROSERVER_PASSWORD"
 VITE_HYDROSERVER="https://lro.hydroserver.org/"
 ```
 
+Install dependencies
+```
+npm install
+```
+
+
 Run the development server
 ```
 npm run dev
