@@ -23,7 +23,8 @@ export const initHydroServer = async () => {
  * @returns
  */
 export const loadData = async (id) => {
-  const datastream = (await hs.datastreams.get(id)).data;
+  const datastream = (await hs.datastreams.get(id, { expand_related: true }))
+    .data;
 
   if (!datastream.phenomenonBeginTime || !datastream.phenomenonEndTime) {
     return { datetimes: [], dataValues: [] };

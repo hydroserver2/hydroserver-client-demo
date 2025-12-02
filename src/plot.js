@@ -23,12 +23,11 @@ export const plot = async (data) => {
     type: "date",
     title: { text: "Datetime" },
     autorange: true,
-    showline: true,
   };
 
   const yAxis = {
     title: {
-      text: "some label",
+      text: data.qcDatastream.observedProperty.name,
     },
     autorange: true,
   };
@@ -44,18 +43,12 @@ export const plot = async (data) => {
       hovermode: "x", // Disable if hovering is too costly
       title: {
         text: data.qcDatastream.name,
-        // font: { color: COLORS[0], weight: "bold" },
       },
-      showlegend: false,
     },
     config: {
       displayModeBar: true,
-      showlegend: false,
-      modeBarButtonsToRemove: ["toImage", "autoScale"],
       scrollZoom: true,
       responsive: true,
-      doubleClick: false,
-      plotGlPixelRatio: 1,
     },
   };
 
