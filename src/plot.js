@@ -35,18 +35,19 @@ export const plot = async (data) => {
   const plotlyOptions = {
     traces: [trace],
     layout: {
-      spikedistance: 0, // https://github.com/plotly/plotly.js/issues/5927#issuecomment-1697679087
-      // hoverdistance: 20,
       xaxis,
       yAxis,
       dragmode: "pan",
-      hovermode: "x", // Disable if hovering is too costly
+      hovermode: "x",
+      hovertemplate: "<b>%{y}</b><br>%{x}<extra></extra>",
       title: {
         text: data.qcDatastream.name,
       },
+      spikedistance: 0,
     },
     config: {
       displayModeBar: true,
+      showlegend: false,
       scrollZoom: true,
       responsive: true,
     },

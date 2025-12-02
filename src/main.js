@@ -1,5 +1,6 @@
 import { loadData, initHydroServer } from "./api";
 import { plot } from "./plot";
+import "./style.css";
 
 const initData = async () => {
   await initHydroServer();
