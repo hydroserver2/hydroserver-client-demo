@@ -28,7 +28,7 @@ export const plot = async (data) => {
       },
       yaxis: {
         title: {
-          text: data.qcDatastream.observedProperty.name,
+          text: `${data.qcDatastream.observedProperty.name} (${data.qcDatastream.unit.symbol})`,
         },
         autorange: true,
       },
