@@ -4,21 +4,24 @@ import "./style.css";
 
 const initData = async () => {
   await initHydroServer();
-  const rawData = await loadData("019736de-8e13-7021-b124-3400a9c00c3b");
-  const qcData = await loadData("019736de-47ad-719f-bea1-b3526ff86a71");
+
+  // LOAD THE OBSERVATIONS
+  const rawData = await loadData(import.meta.env.VITE_RAW_DATASTREAM);
+  const qcData = await loadData(import.meta.env.VITE_QC_DATASTREAM);
 
   const fullData = {
     dataValues: qcData.dataValues,
     datetimes: qcData.datetimes,
-    qcDatastream: qcData.datastream,
+    qcDatastream: qcData.datastream, // USED FOR PLOT METADATA
   };
 
   const lastQcDatetime = qcData.datetimes[qcData.datetimes.length - 1];
+  const rawCutOffIndex = rawData.datetimes.findIndex((d) => d > lastQcDatetime);
 
-  const appendRawIndex = rawData.datetimes.findIndex((d) => d > lastQcDatetime);
-  if (appendRawIndex > -1) {
-    rawData.dataValues.splice(0, appendRawIndex);
-    rawData.datetimes.splice(0, appendRawIndex);
+  // APPEND RAW DATA TO THE QC DATA AFTER THE CUTOFF DATETIME
+  if (rawCutOffIndex > -1) {
+    rawData.dataValues.splice(0, rawCutOffIndex);
+    rawData.datetimes.splice(0, rawCutOffIndex);
 
     fullData.dataValues = [...fullData.dataValues, ...rawData.dataValues];
     fullData.datetimes = [...fullData.datetimes, ...rawData.datetimes];
@@ -27,9 +30,7 @@ const initData = async () => {
   return fullData;
 };
 
-const start = async () => {
+window.onload = async () => {
   const data = await initData();
   plot(data);
 };
-
-start();

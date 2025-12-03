@@ -3,53 +3,43 @@ import Plotly from "plotly.js-dist";
 export const plot = async (data) => {
   const left = data.qcDatastream.valueCount;
   const right = data.dataValues.length - left;
-  const trace = {
-    x: data.datetimes,
-    y: data.dataValues,
-    type: "scattergl",
-    mode: "lines+markers",
-    hoverinfo: "skip", // Fixes performance issues, but disables tooltips
-    name: "Plot",
-    showLegend: false,
-    marker: {
-      color: [
-        ...new Array(left).fill("royalblue"),
-        ...new Array(right).fill("indianred"),
-      ],
-    },
-  };
-
-  const xaxis = {
-    type: "date",
-    title: { text: "Datetime" },
-    autorange: true,
-  };
-
-  const yAxis = {
-    title: {
-      text: data.qcDatastream.observedProperty.name,
-    },
-    autorange: true,
-  };
 
   const plotlyOptions = {
-    traces: [trace],
+    traces: [
+      {
+        x: data.datetimes,
+        y: data.dataValues,
+        type: "scattergl",
+        mode: "lines+markers",
+        marker: {
+          // COLOR QC DATA AND RAW DATA DIFFERENTLY
+          color: [
+            ...new Array(left).fill("royalblue"),
+            ...new Array(right).fill("indianred"),
+          ],
+        },
+      },
+    ],
     layout: {
-      xaxis,
-      yAxis,
+      xaxis: {
+        type: "date",
+        title: { text: "Datetime" },
+        autorange: true,
+      },
+      yaxis: {
+        title: {
+          text: data.qcDatastream.observedProperty.name,
+        },
+        autorange: true,
+      },
       dragmode: "pan",
-      hovermode: "x",
-      hovertemplate: "<b>%{y}</b><br>%{x}<extra></extra>",
       title: {
         text: data.qcDatastream.name,
       },
-      spikedistance: 0,
     },
     config: {
       displayModeBar: true,
-      showlegend: false,
       scrollZoom: true,
-      responsive: true,
     },
   };
 

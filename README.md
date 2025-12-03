@@ -1,20 +1,30 @@
 ### Getting started
 
-Create a `.env` file in the project root folder with the following variables:
+Modify the `.env` file in the project root folder and provide the following variables:
 
 ```
+# HYDROSERVER
+VITE_HYDROSERVER="https://lro.hydroserver.org/"
 VITE_HYDROSERVER_USERNAME="YOUR_HYDROSERVER_USERNAME"
 VITE_HYDROSERVER_PASSWORD="YOUR_HYDROSERVER_PASSWORD"
-VITE_HYDROSERVER="https://lro.hydroserver.org/"
+
+# EXAMPLE DATASTREAMS
+VITE_RAW_DATASTREAM="019736de-8e13-7021-b124-3400a9c00c3b"
+VITE_QC_DATASTREAM="019736de-47ad-719f-bea1-b3526ff86a71"
 ```
 
-Install dependencies
+Using your terminal, navigate to the project root folder.
+
+Install dependencies.
+
 ```
 npm install
 ```
 
-
 Run the development server
+
 ```
 npm run dev
 ```
+
+Access the site at http://127.0.0.1:1203/
